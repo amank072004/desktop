@@ -1,0 +1,82 @@
+import java.util.HashMap;
+import java.util.Scanner;
+
+class User {
+    private String username;
+    private String password;
+
+    User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+}
+
+class LanguageLearningPlatform {
+    private HashMap<String, User> users;
+    private Scanner scanner;
+
+    LanguageLearningPlatform() {
+        users = new HashMap<>();
+        scanner = new Scanner(System.in);
+    }
+
+    public void register() {
+        System.out.println("Enter username:");
+        String username = scanner.nextLine();
+        System.out.println("Enter password:");
+        String password = scanner.nextLine();
+        if (users.containsKey(username)) {
+            System.out.println("Username already exists!");
+        } else {
+            users.put(username, new User(username, password));
+            System.out.println("Registration successful!");
+        }
+    }
+
+    public void login() {
+        System.out.println("Enter username:");
+        String username = scanner.nextLine();
+        System.out.println("Enter password:");
+        String password = scanner.nextLine();
+        if (users.containsKey(username) && users.get(username).getPassword().equals(password)) {
+            System.out.println("Login successful!");
+            // Proceed to the main application logic here
+        } else {
+            System.out.println("Invalid username or password!");
+        }
+    }
+
+    public void run() {
+        while (true) {
+            System.out.println("1. Register");
+            System.out.println("2. Login");
+            System.out.println("3. Exit");
+            int choice = Integer.parseInt(scanner.nextLine());
+            switch (choice) {
+                case 1:
+                    register();
+                    break;
+                case 2:
+                    login();
+                    break;
+                case 3:
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        LanguageLearningPlatform platform = new LanguageLearningPlatform();
+        platform.run();
+    }
+}
